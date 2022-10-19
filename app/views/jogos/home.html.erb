@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="row">
+        <%Deck.all.each do |d|%>
+            <div class="col-sm-2">
+                <p><%=d.nome%> <img style="height:100px;width:100px" src="<%=d.logo%>"></p>
+            </div>
+        <%end%>
+    <div>
+</div>
