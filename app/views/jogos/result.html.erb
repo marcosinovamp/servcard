@@ -1,0 +1,13 @@
+<p>O vencedor foi <%=@hand.winner == 0 ? "Empate" : Player.find(@hand.winner).nome%></p>
+
+<p>A sua carta era a <%=@card1.nome%> e a do adversário era <%=@card2.nome%>.</p>
+
+<p> A característica escolhida foi <%=params[:caracteristica]%>, o valor da sua carta era <%=@char1%> e do adversário <%=@char2%>.</p>
+
+<p><%=@stack1.cards%></p>
+<p><%=@stack2.cards%></p>
+
+<%@new = Hand.new(game_id:@game.id)%>
+<%@new.save%>
+
+<a class="btn btn-primary" href="/hand/<%=@new.id%>">Próxima Rodada</a>

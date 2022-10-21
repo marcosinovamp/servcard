@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   get 'card/:id', to: 'jogos#card'
   get 'rascunho', to: 'jogos#rascunho'
   get 'game', to: 'jogos#game'
+  get 'hand/:id', to: 'jogos#hand'
+  get 'result/:id', to: 'jogos#result'
 
 end

@@ -1,0 +1,17 @@
+<h4 style="text-align:center">Esta é a carta que você vai jogar nesta mão <%=@player1.nome%>. Escolha a característica que você quer comparar:</h4>
+<br>
+<form action="/result/<%=@hand.id%>">
+    <div style="width:25%;height:98%;margin:auto;box-shadow: 2px 2px 2px grey;border:1px solid black;border-radius:5px;padding:10px;background-color:#ECF0F1;font-size:11px" class="card">
+        <div style="top:0;position:absolute;margin:0;width:100%;font-size:9px;font-weight:700;z-index:1000"><%=@card.identificacao%></div>
+        <img style="height:100px;max-width:100%;margin:auto;margin-top:0;border:0.5px solid grey;padding:5px" src="<%=@card.deck.logo%>">
+        <br>
+        <p style="text-align:center;color:darkgreen;text-shadow:0.2px 0.2px 0.5px #145A32;font-size:12;font-weight:700"><%=@card.nome%></p>
+            <p style="text-align:justify;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0"><input style="height:10px" type="radio" id="total_de_avaliacoes" name="caracteristica" value="total_de_avaliacoes"> <label for="total_de_avaliacoes">Total de avaliações: <%=nmb_form(@card.avaliacoes.nil? ? 0: @card.avaliacoes)%></label></p>
+            <p style="text-align:justify;font-weight:700;background-color:lightyellow;padding:10px;margin:0"><input style="height:10px" type="radio" id="aprovacao_do_servico" name="caracteristica" value="aprovacao_do_servico"> <label for="aprovacao_do_servico">Aprovação do serviço: <%=@card.aprovacao.nil? ? "0%" : percent(@card.aprovacao)%></label></p>
+            <p style="text-align:justify;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0"><input style="height:10px" type="radio" id="quantidade_de_etapas" name="caracteristica" value="quantidade_de_etapas"> <label for="quantidade_de_etapas">Quantidade de etapas: <%=@card.etapas%></label></p>
+            <p style="text-align:justify;font-weight:700;background-color:lightyellow;padding:10px;margin:0"><input style="height:10px" type="radio" id="indice_de_digitalizacao" name="caracteristica" value="indice_de_digitalizacao"> <label for="indice_de_digitalizacao">Índice de digitalização: <%=@card.digitalizacao%>%</label></p>
+            <p style="text-align:justify;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0"><input style="height:10px" type="radio" id="botao_iniciar" name="caracteristica" value="botao_iniciar"> <label for="botao_iniciar">Tem botão iniciar? <%=@card.botao_iniciar == true ? "Sim" : "Não"%></label></p>
+            <p style="text-align:justify;font-weight:700;background-color:lightyellow;padding:10px;margin:0"><input style="height:10px" type="radio" id="tempo_de_espera" name="caracteristica" value="tempo_de_espera"> <label for="tempo_de_espera">Tempo de espera (dias): <%=@card.duracao == 999999999 ? "Não estimado" : @card.duracao == 0 ? "Imediato" : nmb_form(@card.duracao)%></label></p>
+    </div>
+    <input type="submit" value="Submit">
+</form>
