@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   root to: 'jogos#home'
   get 'card/:id', to: 'jogos#card'
+  get 'rascunho', to: 'jogos#rascunho'
+  get 'game', to: 'jogos#game'
 
 end

@@ -1,5 +1,6 @@
 <div class="container">
     <div style="width:40%;margin:auto;margin-top:10px;box-shadow: 2px 2px 2px grey;border:1px solid black;border-radius:5px;padding:10px;background-color:#ECF0F1" class="card">
+        <div style="top:0;position:absolute;margin:0;width:50px;font-size:9px;font-weight:700;z-index:1000"><%=@card.identificacao%></div>
         <img style="height:150px;max-width:100%;margin:auto;border:0.5px solid grey;padding:5px" src="<%=@card.deck.logo%>">
         <br>
         <h6 style="text-align:center;color:darkgreen;text-shadow:0.2px 0.2px 0.5px #145A32"><%=@card.nome%></h6>

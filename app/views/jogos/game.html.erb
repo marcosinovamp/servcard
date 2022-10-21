@@ -1,0 +1,45 @@
+<div class="container">
+    <h2>Jogo nº <%=@game.id%></h2>
+    <br>
+    <div class="row">
+        <h4>Cartas do <%=@player1.nome%></h4>
+        <%@stack1.each do |s|%>
+            <%@card = Card.find(s)%>
+            <div class="col-sm-3">
+                <div style="width:100%;height:98%;margin:auto;box-shadow: 2px 2px 2px grey;border:1px solid black;border-radius:5px;padding:10px;background-color:#ECF0F1;font-size:11px" class="card">
+                    <div style="top:0;position:absolute;margin:0;width:100%;font-size:9px;font-weight:700;z-index:1000"><%=@card.identificacao%></div>
+                    <img style="height:100px;max-width:100%;margin:auto;margin-top:0;border:0.5px solid grey;padding:5px" src="<%=@card.deck.logo%>">
+                    <br>
+                    <p style="text-align:center;color:darkgreen;text-shadow:0.2px 0.2px 0.5px #145A32;font-size:12;font-weight:700"><%=@card.nome%></p>
+                    <p style="text-align:center;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0">Total de avaliações: <%=nmb_form(@card.avaliacoes.nil? ? 0: @card.avaliacoes)%></p>
+                    <p style="text-align:center;font-weight:700;background-color:lightyellow;padding:10px;margin:0">Aprovação do serviço: <%=@card.aprovacao.nil? ? "0%" : percent(@card.aprovacao)%></p>
+                    <p style="text-align:center;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0">Quantidade de etapas: <%=@card.etapas%></p>
+                    <p style="text-align:center;font-weight:700;background-color:lightyellow;padding:10px;margin:0">Índice de digitalização: <%=@card.digitalizacao%>%</p>
+                    <p style="text-align:center;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0">Tem botão iniciar? <%=@card.botao_iniciar == true ? "Sim" : "Não"%></p>
+                    <p style="text-align:center;font-weight:700;background-color:lightyellow;padding:10px;margin:0">Tempo de espera (dias): <%=@card.duracao == 999999999 ? "Não estimado" : @card.duracao == 0 ? "Imediato" : nmb_form(@card.duracao)%></p>
+                </div>
+            </div>
+        <%end%>
+    </div>
+    <br>
+    <div class="row">
+        <h4>Cartas do <%=@player2.nome%></h4>
+        <%@stack2.each do |s|%>
+            <%@card = Card.find(s)%>
+            <div class="col-sm-3">
+                <div style="width:100%;height:98%;margin:auto;box-shadow: 2px 2px 2px grey;border:1px solid black;border-radius:5px;padding:10px;background-color:#ECF0F1;font-size:11px" class="card">
+                    <div style="top:0;position:absolute;margin:0;width:50px;font-size:9px;font-weight:700;z-index:1000"><%=@card.identificacao%></div>
+                    <img style="height:150px;max-width:100%;margin:auto;border:0.5px solid grey;padding:5px" src="<%=@card.deck.logo%>">
+                    <br>
+                    <p style="text-align:center;color:darkgreen;text-shadow:0.2px 0.2px 0.5px #145A32;font-size:12;font-weight:700"><%=@card.nome%></p>
+                    <p style="text-align:center;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0">Total de avaliações: <%=nmb_form(@card.avaliacoes.nil? ? 0: @card.avaliacoes)%></p>
+                    <p style="text-align:center;font-weight:700;background-color:lightyellow;padding:10px;margin:0">Aprovação do serviço: <%=@card.aprovacao.nil? ? "0%" : percent(@card.aprovacao)%></p>
+                    <p style="text-align:center;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0">Quantidade de etapas: <%=@card.etapas%></p>
+                    <p style="text-align:center;font-weight:700;background-color:lightyellow;padding:10px;margin:0">Índice de digitalização: <%=@card.digitalizacao%>%</p>
+                    <p style="text-align:center;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0">Tem botão iniciar? <%=@card.botao_iniciar == true ? "Sim" : "Não"%></p>
+                    <p style="text-align:center;font-weight:700;background-color:lightyellow;padding:10px;margin:0">Tempo de espera (dias): <%=@card.duracao == 999999999 ? "Não estimado" : @card.duracao == 0 ? "Imediato" : nmb_form(@card.duracao)%></p>
+                </div>
+            </div>
+        <%end%>
+    </div>
+</div>

@@ -1,9 +1,13 @@
-<div class="container">
-    <div class="row">
-        <%Deck.all.each do |d|%>
-            <div class="col-sm-2">
-                <p><%=d.nome%> <img style="height:100px;width:100px" src="<%=d.logo%>"></p>
-            </div>
-        <%end%>
-    <div>
+<div style="text-align:center" class="container">
+    <br>
+    <h3>Bem vindo ao ServCard</h3>
+    <br>
+    <form action="/game">
+        <label for="player1">Para começar o jogo informe o seu nome:</label>
+        <br>
+        <input type="text" id="player1" name="player1">
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
 </div>
