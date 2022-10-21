@@ -7,7 +7,17 @@
 <p><%=@stack1.cards%></p>
 <p><%=@stack2.cards%></p>
 
-<%@new = Hand.new(game_id:@game.id)%>
-<%@new.save%>
-
-<a class="btn btn-primary" href="/hand/<%=@new.id%>">Próxima Rodada</a>
+<%if @st1.size == 0 || @st2.size == 0%>
+    <%if @st1.size == 0%>
+        <%@game.winner = @game.player2%>
+        <%@game.save%>
+    <%elsif @st2.size == 0%>
+        <%@game.winner = @game.player1%>
+        <%@game.save%>
+    <%end%>
+    <a class="btn btn-primary" href="/final_jogo/<%=@game.id%>">Seguir</a>
+<%else%>
+    <%@new = Hand.new(game_id:@game.id)%>
+    <%@new.save%>
+    <a class="btn btn-primary" href="/hand/<%=@new.id%>">Próxima Rodada</a>
+<%end%>

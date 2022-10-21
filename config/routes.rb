@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   get 'game', to: 'jogos#game'
   get 'hand/:id', to: 'jogos#hand'
   get 'result/:id', to: 'jogos#result'
+  get 'final_jogo/:id', to: 'jogos#final_jogo'
 
 end

@@ -163,6 +163,10 @@ class JogosController < ApplicationController
     @stack2.save
   end
 
+  def final_jogo
+    @game = Game.find(params[:id])
+  end
+
   def rascunho
   end
 
