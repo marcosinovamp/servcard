@@ -1,14 +1,81 @@
 <div class="container">
-    <div style="width:40%;margin:auto;margin-top:10px;box-shadow: 2px 2px 2px grey;border:1px solid black;border-radius:5px;padding:10px;background-color:#ECF0F1" class="card">
-        <div style="top:0;position:absolute;margin:0;width:50px;font-size:9px;font-weight:700;z-index:1000"><%=@card.identificacao%></div>
-        <img style="height:150px;max-width:100%;margin:auto;border:0.5px solid grey;padding:5px" src="<%=@card.deck.logo%>">
-        <br>
-        <h6 style="text-align:center;color:darkgreen;text-shadow:0.2px 0.2px 0.5px #145A32"><%=@card.nome%></h6>
-        <p style="text-align:center;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0">Total de avaliações: <%=nmb_form(@card.avaliacoes.nil? ? 0: @card.avaliacoes)%></p>
-        <p style="text-align:center;font-weight:700;background-color:lightyellow;padding:10px;margin:0">Aprovação do serviço: <%=@card.aprovacao.nil? ? "0%" : percent(@card.aprovacao)%></p>
-        <p style="text-align:center;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0">Quantidade de etapas: <%=@card.etapas%></p>
-        <p style="text-align:center;font-weight:700;background-color:lightyellow;padding:10px;margin:0">Índice de digitalização: <%=@card.digitalizacao%>%</p>
-        <p style="text-align:center;font-weight:700;background-color:darkgreen;color:white;padding:10px;margin:0">Tem botão iniciar? <%=@card.botao_iniciar == true ? "Sim" : "Não"%></p>
-        <p style="text-align:center;font-weight:700;background-color:lightyellow;padding:10px;margin:0">Tempo de espera (dias): <%=@card.duracao == 999999999 ? "Não estimado" : @card.duracao == 0 ? "Imediato" : nmb_form(@card.duracao)%></p>
+<br>
+    <div class="row">
+        <div class="col-sm-4 auto">
+            <div class="centered font12 w100">
+                <div class=" control-box">
+                    <h6>Escolha a <span>carta de serviço</span> que você quer visualizar:</h6>
+                    <br>
+                    <form action="/intermedium">
+                        <div>
+                            <select class="w80" name="card" id="cards">
+                                <option value="" disabled selected hidden>Escolha uma carta</option>
+                                <%@cards.sort_by{|card| card.identificacao}.each do |c|%>
+                                    <option class="f8" value="<%=c.id%>"><%=c.identificacao%> - <%=c.nome%></option>
+                                <%end%>
+                            </select>
+                        </div>
+                        <br>
+                        <div>
+                            <input class="btn btn-sc font14" type="submit" value="Escolher">
+                        </div>
+                    </form>
+                </div>
+                <div style="font-size:50px;text-align:center;color:white;text-shadow: 1px 1px 1px darkgreen">OU</div>
+                <div class=" control-box">
+                    <h6>Escolha a <span>carta de órgão</span> que você quer visualizar:</h6>
+                    <br>
+                    <form action="/intermedium">
+                        <div>
+                            <select class="w80" name="deck" id="cardorgs">
+                                <option value="" disabled selected hidden>Escolha uma carta</option>
+                                <%@cardorgs.sort_by{|card| card.nome}.each do |c|%>
+                                    <option class="f8" value="<%=c.identificacao%>"><%=c.nome%></option>
+                                <%end%>
+                            </select>
+                        </div>
+                        <br>
+                        <div>
+                            <input class="btn btn-sc font14" type="submit" value="Escolher">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8 h100">
+            <%if params[:id].nil?%>
+                <div></div>
+            <%elsif params[:id].include?("SIORG")%>
+                <div class="card-basic card w40">
+                    <div class="card-code f7"><%=@card.identificacao%></div>
+                    <img class="logo" height="100px"; src="<%=@card.logo%>">
+                    <br>
+                    <p class="name-row f14"><%=@card.nome%></p>
+                    <p class="cd-row grow f10">Nº de Serviços: <%=@card.cards.size%></p>
+                    <p class="cd-row yrow f10">Total de avaliações: <%=nmb_form(@card.avaliacoes.nil? ? 0: @card.avaliacoes)%></p>
+                    <p class="cd-row grow f10">Aprovação Média do Órgão: <%=@card.aprovacao.nil? ? "0%" : percent(@card.aprovacao)%></p>
+                    <p class="cd-row yrow f10">Média de etapas por serviço: <%=@card.media_etapas.round(2).to_s.gsub(".",",")%></p>
+                    <p class="cd-row grow f10">Índice de digitalização: <%=@card.digitalizacao.round(2).to_s.gsub(".",",")%>%</p>
+                    <p class="cd-row yrow f10">% de serviços com botão iniciar? <%=percent(@card.porc_botao_iniciar)%></p>
+                    <p class="cd-row grow f10">Média de dias de espera: <%=@card.media_duracao.round(2).to_s.gsub(".",",")%></p>
+                    <p class="cd-row yrow f10">Nº de serviços sem duração estimada: <%=@card.qtd_nao_estimados%></p>
+                </div>
+            <%else%>
+                <div class="card-basic card w40">
+                    <div class="card-code f7"><%=@card.identificacao%></div>
+                    <img class="logo" height="110px"; src="<%=@card.deck.logo%>">
+                    <br>
+                    <p class="name-row f14"><%=@card.nome%></p>
+                    <p class="cd-row grow f11">Total de avaliações: <%=nmb_form(@card.avaliacoes.nil? ? 0: @card.avaliacoes)%></p>
+                    <p class="cd-row yrow f11">Aprovação do serviço: <%=@card.aprovacao.nil? ? "0%" : percent(@card.aprovacao)%></p>
+                    <p class="cd-row grow f11">Quantidade de etapas: <%=@card.etapas%></p>
+                    <p class="cd-row yrow f11">Índice de digitalização: <%=@card.digitalizacao%>%</p>
+                    <p class="cd-row grow f11">Tem botão iniciar? <%=@card.botao_iniciar == true ? "Sim" : "Não"%></p>
+                    <p class="cd-row yrow f11">Tempo de espera (dias): <%=@card.duracao == 999999999 ? "Não estimado" : @card.duracao == 0 ? "Imediato" : nmb_form(@card.duracao)%></p>
+                </div>
+            <%end%>
+        </div>
     </div>
+    <br>
+    <br>
 </div>
