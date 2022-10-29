@@ -26,7 +26,7 @@ servicos["resposta"].each do |s|
         @card.deck_id = Deck.find_by(siorg: s["orgao"]["id"].gsub("http://estruturaorganizacional.dados.gov.br/id/unidade-organizacional/", "")).id
         @card.digitalizacao = s["porcentagemDigital"]
         @card.botao_iniciar = s["servicoDigital"]
-        @card.etapas = s["etapas"].size)
+        @card.etapas = s["etapas"].size
     end
     if s["tempoTotalEstimado"]["ate"].nil? == false
         @card.tempo = s["tempoTotalEstimado"]["ate"]["max"].to_i
@@ -75,10 +75,15 @@ Deck.all.each do |d|
 end
 # duracao e não estimados
 @soma = 0
+
 Deck.all.each do |d|
-    @estimados = d.cards.select{|cd| cd.duracao < 999999999}
+    if d.media_duracao.nil?
+        d.media_duracao = 999999999
+        d.save
+    end
+    @estimados = d.cards.select{|cd| cd.media_duracao < 999999999}
     @estimados.each do |c|
-        @soma += c.duracao
+        @soma += c.media_duracao
     end
     d.qtd_nao_estimados = d.cards.size - @estimados.size
     @tam = @estimados.size == 0 || @estimados.size.nil? ? 1 : @estimados.size
